@@ -101,7 +101,14 @@ export const createEditCategory = (app) => {
     };
     title.addEventListener('focus', clearTitle);
     title.addEventListener('blur', checkTitle);
-    const mount = () => {    };
+    const mount = (data = {title: TITLE, pairs []}) => {
+        tbody.textContent = '';
+        title.textContent = data.title;
+        if (title.textContent === TITLE) {
+
+        }
+
+    };
     const unmount = () => {    };
     return {mount, unmount};
 }
