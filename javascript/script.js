@@ -3,6 +3,7 @@ import {fetchCards, fetchCategories} from "./service/api.service.js";
 import {createCategory} from "./components/createcategory.js";
 import {createElement} from "./helper/createElement.js";
 import {createEditCategory} from "./components/createEditCategory.js";
+import {createPairs} from "./components/createPairs.js";
 
 const initApp = async () => {
     const headerParent = document.querySelector('.header');
@@ -19,7 +20,7 @@ const initApp = async () => {
         e?.preventDefault();
         allSectionUnmount();
         const categories = await fetchCategories();
-
+        headerObj.updateHeaderTitle('Категории');
         if (categories.error) {
             const errorText = createElement('p', {
                 className: 'server-error',
@@ -46,7 +47,18 @@ const initApp = async () => {
             headerObj.updateHeaderTitle('Редактирование');
             editCategoryObj.mount(dataCards);
         }
-    })
+        if (target.closest('.category__del')) {
+
+        }
+        if (categoryItem) {
+            const dataCards = await fetchCards(categoryItem.dataset.id);
+            allSectionUnmount();
+            headerObj.updateHeaderTitle(dataCards.title);
+            pairsObj.mount(dataCards);
+        }
+    });
+    pairsObj.btnReturn.addEventListener('click', renderIndex);
+
 };
 
       initApp();
