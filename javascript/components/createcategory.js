@@ -50,12 +50,12 @@ const category = createElement('section', {
 
 const mount = (data) => {
 categoryList.textContent = '';
-app.append(category);
 const cards = data.map(createCategoryCard);
 categoryList.append(...cards);
+app.append(category);
 };
 const unmount = () => {
 category.remove();
 };
-return{mount, unmount};
+return{mount, unmount, categoryList};
 }

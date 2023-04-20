@@ -1,5 +1,5 @@
 import {createHeader} from "./components/createHeader.js";
-import {fetchCategories} from "./service/api.service.js";
+import {fetchCards, fetchCategories} from "./service/api.service.js";
 import {createCategory} from "./components/createcategory.js";
 import {createElement} from "./helper/createElement.js";
 import {createEditCategory} from "./components/createEditCategory.js";
@@ -14,26 +14,38 @@ const initApp = async () => {
         [categoryObj, editCategoryObj].forEach(obj => obj.unmount());
 
     }
-    const returnIndex = async e => {
+    const renderIndex = async e => {
         e?.preventDefault();
         allSectionUnmount();
         const categories = await fetchCategories();
+
         if (categories.error) {
-            app.append(createElement('p', {
+            const errorText = createElement('p', {
                 className: 'server-error',
                 textContent: 'Ошибка сервера'
-            }));
+            });
+            app.append(errorText);
             return;
         }
         categoryObj.mount(categories);
             }
-            returnIndex();
-    headerObj.headerLogoLink.addEventListener('click', returnIndex);
+         renderIndex();
+    headerObj.headerLogoLink.addEventListener('click', renderIndex);
     headerObj.headerBtn.addEventListener('click', () => {
         allSectionUnmount();
         headerObj.updateHeaderTitle('Новая категория');
         editCategoryObj.mount();
+    });
+    categoryObj.categoryList.addEventListener('click', async ({target}) => {
+        const categoryItem = target.closest('.category__item');
+
+        if (target.closest('.category__edit')) {
+            const dataCards = await fetchCards(categoryItem.dataset.id);
+            allSectionUnmount();
+            headerObj.updateHeaderTitle('Редактирование');
+            editCategoryObj.mount(dataCards);
+        }
     })
 };
 
-initApp();
+      initApp();

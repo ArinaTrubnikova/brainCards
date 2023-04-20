@@ -17,7 +17,7 @@ export const createEditCategory = (app) => {
         title: 'Можно редактировать',
     });
 
-    const table = createElement('tabel', {
+    const table = createElement('table', {
         className: 'edit__table table'
     });
 
@@ -101,14 +101,27 @@ export const createEditCategory = (app) => {
     };
     title.addEventListener('focus', clearTitle);
     title.addEventListener('blur', checkTitle);
-    const mount = (data = {title: TITLE, pairs []}) => {
+
+    btnAddRow.addEventListener('click', () => {
+        const emptyRow = createTDCell([''], ['']);
+        tbody.append(emptyRow);
+    })
+
+    const mount = (data = {title: TITLE, pairs: []}) => {
         tbody.textContent = '';
         title.textContent = data.title;
         if (title.textContent === TITLE) {
-
+        title.classList.add('edit__title_change');
+        } else {
+            title.classList.remove('edit__title_change');
         }
-
+        const rows = data.pairs.map(createTDCell);
+        const emptyRow = createTDCell([''], ['']);
+        tbody.append(...rows, emptyRow);
+        app.append(editCategory);
     };
-    const unmount = () => {    };
-    return {mount, unmount};
+    const unmount = () => {
+        editCategory.remove();
+    };
+    return {mount, unmount, editCategory};
 }

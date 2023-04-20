@@ -1,6 +1,6 @@
 import {createElement} from "../helper/createElement.js";
 
-export const createHeader = (parent) => {
+export const createHeader = parent => {
     const container = createElement('div', {
         className: 'container header__container',
 
