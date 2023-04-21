@@ -23,8 +23,39 @@ export const createPairs = (app) => {
     btnItem.append(spanFront, spanBack);
     container.append(btnReturn, btnItem);
     pairs.append(container);
+    const cardControler = data => {
+        let index = 0;
+        spanFront.textContent = data [index][0];
+        spanBack.textContent = data [index][1];
+        const flipCard = () => {
+            btnItem.classList.add('card__item_flipped');
+            btnItem.removeEventListener('click', flipCard);
+            setTimeout(() =>{
+                btnItem.classList.remove('card__item_flipped');
+                setTimeout(() => {
+                    index++;
+                    if (index === data.length) {
+                        spanFront.textContent = 'the end';
+                        alert('Вернёмся к категориям!');
+                        setTimeout(() => {
+                            btnReturn.click();
+                        }, 2000);
+                        return;
+                    }
+                    spanFront.textContent = data [index][0];
+                    spanBack.textContent = data [index][1];
+                    setTimeout (() => {
+                        btnItem.addEventListener('click', flipCard);
+                    }, 300);
+
+                }, 100);
+            }, 1000);
+        };
+        btnItem.addEventListener('click', flipCard);
+    }
     const mount = data => {
         app.append(pairs);
+        cardControler(data.pairs);
     };
     const unmount = () => {
         pairs.remove();
