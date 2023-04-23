@@ -44,7 +44,7 @@ const initApp = async () => {
             alert(dataCategories.error.message);
             return;
         }
-        alert(`Катергория ${data.title} была изменена`);
+        alert(`Катергория "${data.title}" была изменена`);
         allSectionUnmount();
         headerObj.updateHeaderTitle('Категории');
         categoryObj.mount(dataCategories);

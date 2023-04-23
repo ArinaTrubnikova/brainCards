@@ -402,12 +402,12 @@ tr {
   z-index: 999;
   display: flex;
   position: fixed;
-  right: 50px;
-  bottom: 50px;
+  right: 30px;
+  bottom: 30px;
   align-items: center;
   justify-content: center;
   width: 350px;
-  min-height: 100px;
+  max-height: 50px;
   padding: 30px;
   text-align: center;
   border-radius: 10px;
