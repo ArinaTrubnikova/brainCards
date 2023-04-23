@@ -107,6 +107,7 @@ export const createEditCategory = (app) => {
         tbody.append(emptyRow);
     });
 
+
     const parseData = () => {
         const cellsMain = document.querySelectorAll('.table__cell_one');
         const cellsSecond = document.querySelectorAll('.table__cell_two');
