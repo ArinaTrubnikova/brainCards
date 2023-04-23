@@ -1,4 +1,5 @@
 import {createElement} from "../helper/createElement.js";
+import {shuffleArray} from "../helper/shuffleArray.js";
 
 export const createPairs = (app) => {
     const pairs = createElement('section', {
@@ -55,7 +56,9 @@ export const createPairs = (app) => {
     }
     const mount = data => {
         app.append(pairs);
-        cardControler(data.pairs);
+        const newDate = shuffleArray(data.pairs);
+        cardControler(newDate);
+
     };
     const unmount = () => {
         pairs.remove();

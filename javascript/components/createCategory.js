@@ -24,7 +24,7 @@ const category = createElement('section', {
         const BtnCard = createElement('button', {
             className: 'category__card',
         });
-        item.append(BtnCard);
+
         const titleText = createElement('span', {
             className: 'category__title',
             textContent: data.title,
@@ -42,7 +42,7 @@ const category = createElement('section', {
             className: 'category__btn category__del',
             ariaLabel: 'удалить'
                    });
-        item.append(btnEdit, btnDel);
+        item.append(BtnCard, btnEdit, btnDel);
 
         return item;
     }
